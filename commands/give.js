@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["gift"],
     permissions: ["ADMINISTRATOR"],
     description: "give a user some coins",
-    async execute(message, args, cmd, client, discord, profileData) {
+    async execute(message, args, cmd, client, Discord, profileData) {
         if (!args.length) return message.channel.send('You need to mention a player to give them coins');
         const amount = args[1];
         const target = message.mentions.users.first();
