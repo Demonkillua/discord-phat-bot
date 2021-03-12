@@ -3,7 +3,7 @@ module.exports = {
     aliases: ["bal", "bl"],
     permissions: [],
     description: "Check the user balance",
-    execute(message, args, cmd, client, discord, profileData) {
+    execute(message, args, cmd, client, Discord, profileData) {
         message.channel.send(`Wallet: **${profileData.coins}**\nBank: **${profileData.bank}**`);
     },
 };

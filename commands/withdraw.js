@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["wd"],
     permissions: [],
     description: "withdraw coins from your bank!",
-    async execute(message, args, cmd, client, discord, profileData) {
+    async execute(message, args, cmd, client, Discord, profileData) {
         const amount = args[0];
         if (amount % 1 != 0 || amount <= 0) return message.channel.send("Withraw must be a whole number");
         try {

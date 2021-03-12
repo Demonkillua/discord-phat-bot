@@ -63,9 +63,7 @@ module.exports = async (Discord, client, message) => {
         "MANAGE_EMOJIS",
     ]
 
-    if (!command) {
-        return message.channel.send(`**Invalid Command Entered**`);
-    }
+    if (!command) return;
 
     if (command.permissions.length) {
         let invalidPerms = []
