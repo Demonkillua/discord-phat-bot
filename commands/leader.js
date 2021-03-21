@@ -17,6 +17,7 @@ module.exports = {
 
                 let embed = new Discord.MessageEmbed()
                     .setTitle("Coins Leaderboard")
+                    .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`, '')
                     .setFooter(`Find with ${prefix}leader or ${prefix}board or ${prefix}lb`)
                 //if there are no results
                 if (res.length === 0) {
