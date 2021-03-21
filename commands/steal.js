@@ -3,52 +3,41 @@ module.exports = {
     name: "steal",
     aliases: [],
     permissions: [],
-    //cooldown: 900,
+    cooldown: 900,
     description: "Steal coins from another user.",
-    async execute(message, args, cmd, client, Discord, profileData) {
+    async execute(message, args, cmd, client, Discord, profileData, targetData) {
         const target = message.mentions.users.first();
-        const memberTarget = message.guild.members.cache.get(target.id);
-
-        let targetData;
-        try {
-            targetData = await profileModel.findOne({ userID: memberTarget.user.id });
-            if (!profileData) {
-                let profile = await profileModel.create({
-                    userID: message.author.id,
-                    serverID: message.guild.id,
-                    coins: 1000,
-                    bank: 0,
-                });
-            }
-        } catch (err) {
-            console.log(err)
-        }
-
-        const targetWallet = targetData.coins;
-        var randomAmount = Math.floor(Math.random() * 300) + 1;
-        var chance = Math.floor(Math.random() * 100) + 1;
-        if (target) {
-            if (targetWallet % 1 != 0 || targetWallet == 0 || chance <= 15) return message.channel.send(`${message.author.username}, you failed to steal from ${memberTarget}`);
+        if (!target || !args[0]) {
+            return message.channel.send("Target user was not found");
+        } else {
+            const memberTarget = message.guild.members.cache.get(target.id);
+            var randomAmount = Math.floor(Math.random() * 300) + 1;
+            var chance = Math.floor(Math.random() * 100) + 1;
+            if (!targetData || targetData.coins % 1 != 0 || targetData.coins == 0 || chance <= 15) return message.channel.send(`${message.author.username}, you failed to steal from ${memberTarget}`);
             if (chance <= 25) {
                 try {
-                    if (randomAmount > profileData) var randomAmount = targetWallet;
+                    if (randomAmount > profileData.coins) var randomAmount = profileData.coins;
                     await profileModel.findOneAndUpdate(
                         {
-                            userID: message.author.id
+                            userID: message.author.id,
+                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: -randomAmount,
+                            totalCoins: -randomAmount,
                         },
-                        }
-                    ); 
+                    }
+                    );
                     await profileModel.findOneAndUpdate(
                         {
-                            userID: memberTarget.user.id
+                            userID: memberTarget.user.id,
+                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: randomAmount,
+                            totalCoins: randomAmount,
                         },
-                        }
+                    }
                     );
 
                     return message.channel.send(`${message.author.username}, you were caught!\nYou had to pay ${memberTarget} **${randomAmount} coins**`);
@@ -57,34 +46,36 @@ module.exports = {
                 }
             }
             if (chance > 25) {
-                if (randomAmount > targetWallet) var randomAmount = targetWallet;
+                if (randomAmount > targetData.coins) var randomAmount = targetData.coins;
                 try {
                     await profileModel.findOneAndUpdate(
                         {
-                            userID: message.author.id
+                            userID: message.author.id,
+                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: randomAmount,
+                            totalCoins: randomAmount,
                         },
                     }
                     );
                     await profileModel.findOneAndUpdate(
                         {
-                            userID: memberTarget.user.id
+                            userID: memberTarget.user.id,
+                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: -randomAmount,
+                            totalCoins: -randomAmount,
                         },
                     }
                     );
-            
+
                     return message.channel.send(`${message.author.username}, you successfully stole **${randomAmount}** coins from ${memberTarget}'s wallet`);
                 } catch (err) {
                     console.log(err);
                 }
             }
-        } else {
-            return message.channel.send("Target user was not found");
         }
     }
 }

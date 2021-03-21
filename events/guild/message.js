@@ -6,21 +6,58 @@ const cooldowns = new Map();
 module.exports = async (Discord, client, message) => {
     const prefix = process.env.PREFIX;
 
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (message.author.bot) return;
 
+    const expToAdd = Math.ceil(Math.random() * 50) + 1;
     let profileData;
     try {
-        profileData = await profileModel.findOne({ userID: message.author.id });
+        profileData = await profileModel.findOne({ userID: message.author.id, serverID: message.guild.id });
         if (!profileData) {
             let profile = await profileModel.create({
                 userID: message.author.id,
                 serverID: message.guild.id,
                 coins: 1000,
                 bank: 0,
+                totalCoins: 1000,
+                exp: expToAdd,
             });
         }
     } catch (err) {
         console.log(err)
+    }
+
+    try {
+        await profileModel.findOneAndUpdate({
+            userID: message.author.id
+        }, {
+            $inc: {
+                exp: expToAdd,
+            },
+        }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+
+    if (!message.content.startsWith(prefix)) return;
+
+    let targetData;
+    try {
+        if (message.guild.members.cache.get(message.mentions.users.first().id)) {
+            targetData = await profileModel.findOne({ userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id, serverID: message.guild.id });
+            if (!targetData) {
+                let profile = await profileModel.create({
+                    userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id,
+                    serverID: message.guild.members.cache.get(message.mentions.users.first().id).guild.id,
+                    coins: 1000,
+                    bank: 0,
+                    totalCoins: 1000,
+                    exp: 0,
+                });
+            }
+        }
+    } catch (err) {
+        console.log(err);
     }
 
     const args = message.content.slice(prefix.length).split(/ +/);
@@ -107,7 +144,7 @@ module.exports = async (Discord, client, message) => {
     setTimeout(() => time_stamps.delete(message.author.id), cooldown_amount);
 
     try {
-        command.execute(message, args, cmd, client, Discord, profileData);
+        command.execute(message, args, cmd, client, Discord, profileData, targetData);
     } catch (err) {
         message.reply("There was an error trying to execute this command!");
         console.log(err);

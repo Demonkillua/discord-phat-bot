@@ -15,6 +15,7 @@ module.exports = {
             + `${prefix}deposit # - deposit coins to your bank from your wallet.\n`
             + `${prefix}withdraw # - withdraw coins from your bank into your wallet.\n`
             + `${prefix}steal @user - steal coins from a users wallet.\n`
+            + `${prefix}leader - display the current coin total leaders.`
             + `\n**Moderator Commands**\n${prefix}clear # - to clear 1-100 messages from within the past 12 days.\n`
             + `${prefix}mute @user - mute a member.\n`
             + `${prefix}mute @user 1y1d1m1s - mute a member for a set time.\n`
