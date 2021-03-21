@@ -8,18 +8,16 @@ module.exports = {
         const randomNumber = Math.floor(Math.random() * args[0]) + 1;
         const newEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
-            .setTitle(`${message.author.username}!`)
-            .setURL('')
+            .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`, '')
             .setDescription(`You rolled a ${args[0]} sided dice!`)
             .addFields(
                 { name: 'Results', value: `**${randomNumber}**` }
             )
-            .setImage('')
             .setFooter(`Roll with ${prefix}roll or ${prefix}r`);
 
         if (!args[0]) return message.reply("Please enter a number");
         if (isNaN(args[0])) return message.reply("Please enter a valid number");
         message.channel.send(newEmbed);
-        return message.delete();
+        message.delete();
     },
 }

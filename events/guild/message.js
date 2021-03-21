@@ -11,7 +11,7 @@ module.exports = async (Discord, client, message) => {
     const expToAdd = Math.ceil(Math.random() * 50) + 1;
     let profileData;
     try {
-        profileData = await profileModel.findOne({ userID: message.author.id, serverID: message.guild.id });
+        profileData = await profileModel.findOne({ userID: message.author.id });
         if (!profileData) {
             let profile = await profileModel.create({
                 userID: message.author.id,
@@ -44,7 +44,7 @@ module.exports = async (Discord, client, message) => {
     let targetData;
     try {
         if (message.guild.members.cache.get(message.mentions.users.first().id)) {
-            targetData = await profileModel.findOne({ userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id, serverID: message.guild.id });
+            targetData = await profileModel.findOne({ userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id });
             if (!targetData) {
                 let profile = await profileModel.create({
                     userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id,

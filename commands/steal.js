@@ -20,7 +20,6 @@ module.exports = {
                     await profileModel.findOneAndUpdate(
                         {
                             userID: message.author.id,
-                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: -randomAmount,
@@ -31,7 +30,6 @@ module.exports = {
                     await profileModel.findOneAndUpdate(
                         {
                             userID: memberTarget.user.id,
-                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: randomAmount,
@@ -51,7 +49,6 @@ module.exports = {
                     await profileModel.findOneAndUpdate(
                         {
                             userID: message.author.id,
-                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: randomAmount,
@@ -62,7 +59,6 @@ module.exports = {
                     await profileModel.findOneAndUpdate(
                         {
                             userID: memberTarget.user.id,
-                            serverID: message.guild.id,
                         }, {
                         $inc: {
                             coins: -randomAmount,
