@@ -8,7 +8,8 @@ module.exports = {
             + `${prefix}roll # - ${prefix}r #\n`
             + `${prefix}balance - ${prefix}bal **or** ${prefix}bl\n`
             + `${prefix}deposit # - ${prefix}dep #\n`
-            + `${prefix}withdraw # - ${prefix}wd #\n\n`
+            + `${prefix}withdraw # - ${prefix}wd #\n`
+            + `${prefix}leader - ${prefix}board **or** ${prefix}lb\n`
             + `**Moderator Commands**\n${prefix}clear # - ${prefix}delete # **or** ${prefix}cl #\n`
             + `${prefix}give @user # - ${prefix}gift @user #`);
     }

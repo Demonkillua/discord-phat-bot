@@ -15,10 +15,11 @@ module.exports = {
                 { name: 'Results', value: `**${randomNumber}**` }
             )
             .setImage('')
-            .setFooter(`Roll with ${prefix}roll`);
+            .setFooter(`Roll with ${prefix}roll or ${prefix}r`);
 
         if (!args[0]) return message.reply("Please enter a number");
         if (isNaN(args[0])) return message.reply("Please enter a valid number");
-        return message.channel.send(newEmbed);
+        message.channel.send(newEmbed);
+        return message.delete();
     },
-  };
+}

@@ -18,6 +18,7 @@ module.exports = {
             }, {
                 $inc: {
                     coins: amount,
+                    totalCoins: amount,
                 },
             }
             );

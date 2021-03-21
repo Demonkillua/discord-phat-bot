@@ -9,6 +9,8 @@ module.exports = async (client, Discord, member) => {
         userID: member.id,
         serverID: member.guild.id,
         coins: 1000,
+        totalCoins: 1000,
+        exp: 0,
         bank: 0,
     });
     profile.save();
