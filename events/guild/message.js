@@ -20,10 +20,11 @@ module.exports = async (Discord, client, message) => {
                 bank: 0,
                 totalCoins: 1000,
                 exp: expToAdd,
+                level: 1,
             });
         }
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 
     try {
@@ -36,7 +37,256 @@ module.exports = async (Discord, client, message) => {
         }
         );
     } catch (err) {
-        console.log(err)
+        console.log(err);
+    }
+
+    if (profileData.exp >= 3600000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 20,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 2550000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 19,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 1800000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 18,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 1300000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 17,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 890000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 16,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 635000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 15,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 445000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 14,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 315000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 13,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 220000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 12,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 155000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 11,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 105000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 10,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 75000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 9,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 51000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 8,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 35000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 7,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 23000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 6,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 15000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 5,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 9000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 4,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 5000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 3,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else if (profileData.exp >= 2000) {
+        try {
+            await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    level: 2,
+                },
+            }
+            );
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     if (!message.content.startsWith(prefix)) return;
@@ -53,6 +303,7 @@ module.exports = async (Discord, client, message) => {
                     bank: 0,
                     totalCoins: 1000,
                     exp: 0,
+                    level: 1,
                 });
             }
         }
@@ -131,12 +382,18 @@ module.exports = async (Discord, client, message) => {
 
         if (current_time < expiration_time) {
             const time_left = (expiration_time - current_time) / 1000;
+            var days = Math.floor(time_left.toFixed(1) / 86400);
+            var hours = Math.floor((time_left.toFixed(1) - (days * 86400)) / 3600);
+            var minutes = Math.floor((time_left.toFixed(1) - (hours * 3600)) / 60);
+            var seconds = Math.ceil(time_left.toFixed(1) - (minutes * 60));
 
-            if (command.name !== 'beg') {
-                return message.reply(`Please wait **${Math.ceil(time_left.toFixed(1))}** more seconds before using the \`${prefix}${command.name}\` command`);
-            } else {
-                return message.reply(`Please wait **${Math.ceil(time_left.toFixed(1) / 3600)}** more hour(s) before using the \`${prefix}${command.name}\` command`);
-            }
+            if (days >= 1) {
+                return message.reply(`please wait **${days}** day(s), **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+            } else if (hours >= 1) {
+                return message.reply(`please wait **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+            } else if (minutes >= 1) {
+                return message.reply(`please wait **${minutes}** minute(s) and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+            } else return message.reply(`please wait **${Math.ceil(time_left.toFixed(1))}** more second(s) to use the \`${prefix}${command.name}\` command again.`)
         }
     }
 
