@@ -18,6 +18,6 @@ module.exports = {
         },
       }
     );
-    return message.channel.send(`${message.author.username}, you begged and received ${randomNumber} **coins**`);
+    return message.channel.send(`${message.author.username}, you begged and received **${randomNumber}** coins`);
   },
 };

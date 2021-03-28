@@ -7,6 +7,7 @@ const profileSchema = new mongoose.Schema({
     bank: { type: Number },
     totalCoins: { type: Number, default: 1000 },
     exp: { type: Number },
+    level: { type: Number, default: 1 },
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);

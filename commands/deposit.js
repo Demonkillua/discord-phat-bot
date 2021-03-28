@@ -5,10 +5,11 @@ module.exports = {
     permissions: [],
     description: "deposit coins into your bank!",
     async execute(message, args, cmd, client, Discord, profileData) {
-        const amount = args[0];
+        var amount = args[0];
         if (amount % 1 != 0 || amount <= 0) return message.channel.send("Deposit must be a whole number");
+        if (amount > profileData.coins) var amount = profileData.coins
         try {
-            if (amount > profileData.coins) return message.channel.send(`You don't have enough coins to depost **${args[0]}** coins`)
+            if (amount == 0) return message.channel.send(`Failed to deposit ${args[0]}, wallet is currently empty.`)
             await profileModel.findOneAndUpdate(
                 {
                     userID: message.author.id
