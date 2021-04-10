@@ -14,6 +14,7 @@ module.exports = {
             + `${prefix}balance - find your total of coins.\n`
             + `${prefix}deposit # - deposit coins to your bank from your wallet.\n`
             + `${prefix}withdraw # - withdraw coins from your bank into your wallet.\n`
+            + `${prefix}give @user # - give a user some of your coins from your wallet.`
             + `${prefix}steal @user - steal coins from a users wallet.\n`
             + `${prefix}leader - display the current coin total leaders.\n`
             + `${prefix}expleader - display the current leaders in exp. (exp is a WIP)\n`
@@ -23,6 +24,6 @@ module.exports = {
             + `${prefix}unmute @user - unmute a member.\n`
             + `${prefix}kick @user - kick a user.\n`
             + `${prefix}ban @user - ban a user.\n`
-            + `${prefix}give @user # - give a user coins to their wallet. (Admin Only)`);
+            + `${prefix}admingive @user # - Add coins to a users wallet. (Admin Only)`);
     }
 }
