@@ -384,8 +384,8 @@ module.exports = async (Discord, client, message) => {
             const time_left = (expiration_time - current_time) / 1000;
             var days = Math.floor(time_left.toFixed(1) / 86400);
             var hours = Math.floor((time_left.toFixed(1) - (days * 86400)) / 3600);
-            var minutes = Math.floor((time_left.toFixed(1) - (hours * 3600)) / 60);
-            var seconds = Math.ceil(time_left.toFixed(1) - (minutes * 60));
+            var minutes = Math.floor((time_left.toFixed(1) - (days * 86400) - (hours * 3600)) / 60);
+            var seconds = Math.ceil(time_left.toFixed(1) - (days * 86400) - (hours * 3600) - (minutes * 60));
 
             if (days >= 1) {
                 return message.reply(`please wait **${days}** day(s), **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
