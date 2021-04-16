@@ -8,7 +8,7 @@ module.exports = {
         var randomNumber = Math.floor(Math.random() * args[0]) + 1;
         const newEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
-            .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`, '')
+            .setAuthor(`${message.member.displayName}`, `${message.author.displayAvatarURL()}`, '')
             .setDescription(`You rolled a ${args[0]} sided dice!`)
             .addFields(
                 { name: 'Results', value: `**${randomNumber}**` }

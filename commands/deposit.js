@@ -6,13 +6,14 @@ module.exports = {
     description: "deposit coins into your bank!",
     async execute(message, args, cmd, client, Discord, profileData) {
         var amount = args[0];
+        if (amount > profileData.coins || amount == "all") var amount = profileData.coins
         if (amount % 1 != 0 || amount <= 0) return message.channel.send("Deposit must be a whole number");
-        if (amount > profileData.coins) var amount = profileData.coins
         try {
-            if (amount == 0) return message.channel.send(`Failed to deposit ${args[0]}, wallet is currently empty.`)
+            if (amount == 0) return message.channel.send(`Failed to deposit **${args[0]}** coins. Your wallet is currently empty.`)
             await profileModel.findOneAndUpdate(
                 {
-                    userID: message.author.id
+                    userID: message.author.id,
+                    serverID: message.guild.id,
                 }, {
                 $inc: {
                     coins: -amount,
@@ -21,7 +22,7 @@ module.exports = {
             }
             );
 
-            return message.channel.send(`You successfully deposited **${amount}** into your bank`)
+            return message.channel.send(`You successfully deposited **${amount}** coins into your bank`)
         } catch (err) {
             console.log(err);
         }

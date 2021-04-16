@@ -10,6 +10,7 @@ module.exports = {
     const response = await profileModel.findOneAndUpdate(
       {
         userID: message.author.id,
+        serverID: message.guild.id,
       },
       {
         $inc: {
@@ -18,6 +19,6 @@ module.exports = {
         },
       }
     );
-    return message.channel.send(`${message.author.username}, you begged and received **${randomNumber}** coins`);
+    return message.channel.send(`**${message.member.displayName}**, you begged and received **${randomNumber}** coins`);
   },
 };

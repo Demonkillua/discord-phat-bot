@@ -5,7 +5,7 @@ module.exports = {
     execute(message, args, cmd, client, Discord) {
         const embed = new Discord.MessageEmbed()
             .setTitle('Pong!')
-            .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`, '')
+            .setAuthor(`${message.member.displayName}`, `${message.author.displayAvatarURL()}`, '')
             .setColor('RANDOM')
             .setDescription(`Latency is ${Date.now() - message.createdTimestamp}ms. 
             API Latency is ${Math.round(client.ws.ping)}ms`);

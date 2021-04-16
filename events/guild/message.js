@@ -11,7 +11,7 @@ module.exports = async (Discord, client, message) => {
     const expToAdd = Math.ceil(Math.random() * 50) + 1;
     let profileData;
     try {
-        profileData = await profileModel.findOne({ userID: message.author.id });
+        profileData = await profileModel.findOne({ userID: message.author.id, serverID: message.guild.id });
         if (!profileData) {
             let profile = await profileModel.create({
                 userID: message.author.id,
@@ -29,7 +29,8 @@ module.exports = async (Discord, client, message) => {
 
     try {
         await profileModel.findOneAndUpdate({
-            userID: message.author.id
+            userID: message.author.id,
+            serverID: message.guild.id,
         }, {
             $inc: {
                 exp: expToAdd,
@@ -40,10 +41,17 @@ module.exports = async (Discord, client, message) => {
         console.log(err);
     }
 
-    if (profileData.exp >= 3600000) {
+    let channelID;
+    if (message.guild.id === "535597599042961414") channelID = "809589095394705420";
+    else if (message.guild.id === "701480336311451799") channelID = "810694548892024893";
+    else channelID = message.channel.id;
+
+    if (profileData.exp >= 3600000 && profileData.level === 19) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **20**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 20,
@@ -53,10 +61,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 2550000) {
+    };
+    if (profileData.exp >= 2550000 && profileData.level === 18) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **19**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 19,
@@ -66,10 +77,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 1800000) {
+    };
+    if (profileData.exp >= 1800000 && profileData.level === 17) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **18**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 18,
@@ -79,10 +93,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 1300000) {
+    };
+    if (profileData.exp >= 1300000 && profileData.level === 16) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **17**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 17,
@@ -92,10 +109,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 890000) {
+    };
+    if (profileData.exp >= 890000 && profileData.level === 15) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **16**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 16,
@@ -105,10 +125,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 635000) {
+    };
+    if (profileData.exp >= 635000 && profileData.level === 14) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **15**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 15,
@@ -118,10 +141,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 445000) {
+    };
+    if (profileData.exp >= 445000 && profileData.level === 13) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **14**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 14,
@@ -131,10 +157,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 315000) {
+    };
+    if (profileData.exp >= 315000 && profileData.level === 12) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **13**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 13,
@@ -144,10 +173,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 220000) {
+    };
+    if (profileData.exp >= 220000 && profileData.level === 11) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **12**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 12,
@@ -157,10 +189,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 155000) {
+    };
+    if (profileData.exp >= 155000 && profileData.level === 10) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **11**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 11,
@@ -170,10 +205,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 105000) {
+    };
+    if (profileData.exp >= 105000 && profileData.level === 9) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **10**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 10,
@@ -183,10 +221,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 75000) {
+    };
+    if (profileData.exp >= 75000 && profileData.level === 8) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **9**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 9,
@@ -196,10 +237,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 51000) {
+    };
+    if (profileData.exp >= 51000 && profileData.level === 7) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **8**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 8,
@@ -209,10 +253,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 35000) {
+    };
+    if (profileData.exp >= 35000 && profileData.level === 6) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **7**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 7,
@@ -222,10 +269,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 23000) {
+    };
+    if (profileData.exp >= 23000 && profileData.level === 5) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **6**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 6,
@@ -235,10 +285,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 15000) {
+    };
+    if (profileData.exp >= 15000 && profileData.level === 4) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **5**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 5,
@@ -248,10 +301,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 9000) {
+    };
+    if (profileData.exp >= 9000 && profileData.level === 3) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **4**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 4,
@@ -261,10 +317,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 5000) {
+    };
+    if (profileData.exp >= 5000 && profileData.level === 2) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **3**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 3,
@@ -274,10 +333,13 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    } else if (profileData.exp >= 2000) {
+    };
+    if (5000 > profileData.exp >= 2000 && profileData.level === 1) {
         try {
+            client.channels.cache.get(channelID).send(`${message.author}, you have reached level **2**!`);
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $set: {
                     level: 2,
@@ -287,29 +349,9 @@ module.exports = async (Discord, client, message) => {
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     if (!message.content.startsWith(prefix)) return;
-
-    let targetData;
-    try {
-        if (message.guild.members.cache.get(message.mentions.users.first().id)) {
-            targetData = await profileModel.findOne({ userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id });
-            if (!targetData) {
-                let profile = await profileModel.create({
-                    userID: message.guild.members.cache.get(message.mentions.users.first().id).user.id,
-                    serverID: message.guild.members.cache.get(message.mentions.users.first().id).guild.id,
-                    coins: 1000,
-                    bank: 0,
-                    totalCoins: 1000,
-                    exp: 0,
-                    level: 1,
-                });
-            }
-        }
-    } catch (err) {
-        console.log(err);
-    }
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
@@ -399,6 +441,26 @@ module.exports = async (Discord, client, message) => {
 
     time_stamps.set(message.author.id, current_time);
     setTimeout(() => time_stamps.delete(message.author.id), cooldown_amount);
+
+    let targetData;
+    try {
+        if (message.mentions.members.first().id && !message.mentions.members.first().bot) {
+            targetData = await profileModel.findOne({ userID: message.mentions.members.first().id, serverID: message.guild.id });
+            if (!targetData) {
+                let profile = await profileModel.create({
+                    userID: message.mentions.members.first().id,
+                    serverID: message.guild.id,
+                    coins: 1000,
+                    bank: 0,
+                    totalCoins: 1000,
+                    exp: 0,
+                    level: 1,
+                });
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
 
     try {
         command.execute(message, args, cmd, client, Discord, profileData, targetData);

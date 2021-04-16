@@ -8,7 +8,7 @@ module.exports = {
         const newEmbed = new Discord.MessageEmbed()
             .setColor('#32a852')
             .setThumbnail(`${message.author.displayAvatarURL()}`)
-            .setTitle(`${message.author.username}`)
+            .setTitle(`${message.member.displayName}`)
             .setURL('')
             .setDescription('')
             .addFields(
