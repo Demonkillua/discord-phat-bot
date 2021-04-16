@@ -17,7 +17,7 @@ module.exports = {
 
                 let embed = new Discord.MessageEmbed()
                     .setTitle("Coins Leaderboard")
-                    .setAuthor(`${message.author.username}`, `${message.author.displayAvatarURL()}`, '')
+                    .setAuthor(`${message.member.displayName}`, `${message.author.displayAvatarURL()}`, '')
                     .setFooter(`Find with ${prefix}leader or ${prefix}board or ${prefix}lb`)
                 if (res.length === 0) {
                     embed.setColor("RED");

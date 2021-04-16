@@ -7,15 +7,16 @@ module.exports = {
     async execute(message, args, cmd, client, Discord, profileData, targetData) {
         if (!args.length) return message.channel.send('You need to mention a player to give them coins');
         const amount = args[1];
-        const target = message.mentions.users.first();
+        const target = message.mentions.members.first();
         if (!target) return message.channel.send("No user found")
         if (amount % 1 != 0 || amount <= 0) return message.channel.send("Amount must be a whole number");
         if (!amount) return message.channel.send("No amount entered")
         try {
-            if (!targetData) return message.channel.send(`${message.guild.members.cache.get(target.id)} was added to the database, please try again`);
+            if (!targetData) return message.channel.send(`**${target.displayName}** was added to the database, please try again`);
             if (amount > profileData.coins) return message.reply(`You do not have enought coins in your wallet to give **${amount}** coins`);
             await profileModel.findOneAndUpdate({
-                userID: target.id
+                userID: target.id,
+                serverID: message.guild.id,
             }, {
                 $inc: {
                     coins: amount,
@@ -24,7 +25,8 @@ module.exports = {
             }
             );
             await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.author.id,
+                serverID: message.guild.id,
             }, {
                 $inc: {
                     coins: -amount,
@@ -33,7 +35,7 @@ module.exports = {
             }
             );
 
-            return message.channel.send(`You successfully gave ${message.guild.members.cache.get(target.id)} **${amount}** coins`);
+            return message.channel.send(`You successfully gave **${target.displayName} ${amount}** coins`);
         } catch (err) {
             console.log(err);
         }

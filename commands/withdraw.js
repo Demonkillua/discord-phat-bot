@@ -8,10 +8,11 @@ module.exports = {
         const amount = args[0];
         if (amount % 1 != 0 || amount <= 0) return message.channel.send("Withraw must be a whole number");
         try {
-            if (amount > profileData.bank) return message.channel.send(`You don't have enough coins to withdraw **${args[0]}** coins`)
+            if (amount > profileData.bank) return message.channel.send(`**${message.member.displayName}**, you don't have enough coins to withdraw **${args[0]}** coins`)
             await profileModel.findOneAndUpdate(
                 {
-                    userID: message.author.id
+                    userID: message.author.id,
+                    serverID: message.guild.id,
                 }, {
                 $inc: {
                     coins: amount,
@@ -20,7 +21,7 @@ module.exports = {
             }
             );
 
-            return message.channel.send(`You successfully withdrawn **${amount}** into your wallet`)
+            return message.channel.send(`**${message.member.displayName}**, you successfully withdrawn **${amount}** into your wallet`)
         } catch (err) {
             console.log(err);
         }

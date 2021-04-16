@@ -6,15 +6,14 @@
 //     cooldown: 0,
 //     description: "This is a test command",
 //     async execute(message, args, cmd, client, Discord, profileData, targetData) {
-//         const target = message.mentions.users.first();
-//         const memberTarget = message.guild.members.cache.get(target.id);
+//         const target = message.mentions.members.first();
 
-//         const targetWallet = await targetData.coins;
+
 //         if (!target) {
-//             return message.channel.send('No target mentioned')
+//             return message.channel.send(`Nickname is ${message.member.displayName}`)
 
 //         } else {
-//             return message.channel.send(`Target (${message.guild.members.cache.get(message.mentions.users.first().id).id}) has ${targetWallet} coins`)
+//             return message.channel.send(`Target ${target.id}`)
 //         }
 //     }
 // }
