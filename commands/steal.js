@@ -1,5 +1,5 @@
-const { set } = require("mongoose");
 const profileModel = require("../models/profileSchema");
+const cooldowns = new Map();
 module.exports = {
     name: "steal",
     aliases: [],
@@ -8,27 +8,24 @@ module.exports = {
     description: "Steal coins from another user.",
     async execute(message, args, cmd, client, Discord, profileData, targetData) {
         const target = message.mentions.members.first();
-        if (target.bot) {
-            message.channel.send("Sorry, bot's are not a valid target");
-            return this.cooldown = 0;
+        if (!target || !args[0]) { 
+            return message.channel.send("Target user was not found"); 
         }
         if (target.id == message.author.id) {
-            message.channel.send("You can't steal from yourself!");
-            return this.cooldown = 0;
+            return message.channel.send("You can't steal from yourself!");
         }
-        if (!target || !args[0]) {
-            message.channel.send("Target user was not found");
-            return this.cooldown = 0;
+        if (!targetData && !message.mentions.users.first().bot) {
+            return message.channel.send("User was added to the database, please wait and try again");
         }
-        if (!targetData && !target.bot) {
-            message.channel.send("User was added to the database, please enter the command again")
-            return this.cooldown = 0;
+        if (message.mentions.users.first().bot) {
+            return message.channel.send("Sorry, bot's are not a valid target");
         }
         var randomAmount = Math.floor(Math.random() * 300) + 1;
         var bankAmount = randomAmount;
         var chance = Math.floor(Math.random() * 100) + 1;
-        if (targetData.coins % 1 != 0 || chance <= 15) return message.channel.send(`**${message.member.displayName}**, you failed to steal from **${target.displayName}**`);
-        if (chance <= 25) {
+        if (chance <= 15) {
+            return message.channel.send(`**${message.member.displayName}**, you failed to steal from **${target.displayName}**`);
+        } else if (chance <= 25) {
             try {
                 if (randomAmount > profileData.coins) var randomAmount = profileData.coins;
                 if (bankAmount > profileData.bank) var bankAmount = profileData.bank;
@@ -61,10 +58,11 @@ module.exports = {
             } catch (err) {
                 console.log(err);
             }
-        }
-        if (chance > 25) {
+        } else if (chance > 25) {
             if (randomAmount > targetData.coins) var randomAmount = targetData.coins;
-            if (targetData.coins == 0) return message.channel.send(`**${target.displayName}'s** wallet is currently empty`)
+            if (targetData.coins == 0) {
+                return message.channel.send(`**${target.displayName}'s** wallet is currently empty`);
+            }
             try {
                 await profileModel.findOneAndUpdate(
                     {

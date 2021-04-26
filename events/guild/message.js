@@ -21,7 +21,57 @@ module.exports = async (Discord, client, message) => {
                 totalCoins: 1000,
                 exp: expToAdd,
                 level: 1,
+                inventory: {
+                    head: null,
+                    neck: null,
+                    cloak: null,
+                    hands: null,
+                    ring1: null,
+                    ring2: null,
+                    belt: null,
+                    feet: null,
+                    lhand: null,
+                    rhand: null,
+                    bag: [
+
+                    ],
+                },
             });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
+    let targetData;
+    try {
+        if (message.mentions.members.first().id && !message.mentions.users.first().bot) {
+            targetData = await profileModel.findOne({ userID: message.mentions.members.first().id, serverID: message.guild.id });
+            if (!targetData) {
+                let profile = await profileModel.create({
+                    userID: message.mentions.members.first().id,
+                    serverID: message.guild.id,
+                    coins: 1000,
+                    bank: 0,
+                    totalCoins: 1000,
+                    exp: 0,
+                    level: 1,
+                    inventory: {
+                        head: null,
+                        neck: null,
+                        cloak: null,
+                        hands: null,
+                        ring1: null,
+                        ring2: null,
+                        belt: null,
+                        feet: null,
+                        lhand: null,
+                        rhand: null,
+                        bag: [
+                            
+                        ],
+                    },
+                });
+            }
         }
     } catch (err) {
         console.log(err);
@@ -42,7 +92,7 @@ module.exports = async (Discord, client, message) => {
     }
 
     let channelID;
-    if (message.guild.id === "535597599042961414") channelID = "809589095394705420";
+    if (message.guild.id === "535597599042961414") channelID = "810649968633315330";
     else if (message.guild.id === "701480336311451799") channelID = "810694548892024893";
     else channelID = message.channel.id;
 
@@ -430,37 +480,20 @@ module.exports = async (Discord, client, message) => {
             var seconds = Math.ceil(time_left.toFixed(1) - (days * 86400) - (hours * 3600) - (minutes * 60));
 
             if (days >= 1) {
-                return message.reply(`please wait **${days}** day(s), **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+                return message.channel.send(`${message.member.displayName}, please wait **${days}** day(s), **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
             } else if (hours >= 1) {
-                return message.reply(`please wait **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+                return message.channel.send(`${message.member.displayName}, please wait **${hours}** hour(s), **${minutes}** minute(s), and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
             } else if (minutes >= 1) {
-                return message.reply(`please wait **${minutes}** minute(s) and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
-            } else return message.reply(`please wait **${Math.ceil(time_left.toFixed(1))}** more second(s) to use the \`${prefix}${command.name}\` command again.`)
+                return message.channel.send(`${message.member.displayName}, please wait **${minutes}** minute(s) and **${seconds}** second(s) to use the \`${prefix}${command.name}\` command again.`)
+            } else return message.channel.send(`${message.member.displayName}, please wait **${Math.ceil(time_left.toFixed(1))}** more second(s) to use the \`${prefix}${command.name}\` command again.`)
         }
     }
 
     time_stamps.set(message.author.id, current_time);
     setTimeout(() => time_stamps.delete(message.author.id), cooldown_amount);
-
-    let targetData;
-    try {
-        if (message.mentions.members.first().id && !message.mentions.members.first().bot) {
-            targetData = await profileModel.findOne({ userID: message.mentions.members.first().id, serverID: message.guild.id });
-            if (!targetData) {
-                let profile = await profileModel.create({
-                    userID: message.mentions.members.first().id,
-                    serverID: message.guild.id,
-                    coins: 1000,
-                    bank: 0,
-                    totalCoins: 1000,
-                    exp: 0,
-                    level: 1,
-                });
-            }
-        }
-    } catch (err) {
-        console.log(err);
-    }
+    if (command.name = "steal") {
+        if(!args[0] || !message.mentions.members.first() || message.mentions.users.first().bot || message.mentions.members.first().id == message.author.id || !targetData) time_stamps.delete(message.author.id), 900000;
+    };
 
     try {
         command.execute(message, args, cmd, client, Discord, profileData, targetData);
